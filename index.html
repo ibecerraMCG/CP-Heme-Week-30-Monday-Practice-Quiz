@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 30 Monday Practice Quiz</title>
+    <style>
+        /* --- CSS Variables & Themes --- */
+        :root {
+            /* Base Transition */
+            --transition-speed: 0.3s;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* 1. Modern Dark (Default) */
+        [data-theme="dark"] {
+            --bg-body: #1e293b;
+            --bg-card: #334155;
+            --bg-header: #0f172a;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-accent: #38bdf8;
+            --border-color: #475569;
+            --highlight-bg: #475569;
+            --button-bg: #38bdf8;
+            --button-text: #0f172a;
+            --button-hover: #0ea5e9;
+            --feedback-success-bg: #064e3b;
+            --feedback-success-border: #059669;
+            --feedback-success-text: #a7f3d0;
+            --feedback-error-bg: #7f1d1d;
+            --feedback-error-border: #dc2626;
+            --feedback-error-text: #fecaca;
+        }
+
+        /* 2. Modern Light */
+        [data-theme="light"] {
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --text-accent: #2563eb;
+            --border-color: #e5e7eb;
+            --highlight-bg: #f3f4f6;
+            --button-bg: #2563eb;
+            --button-text: #ffffff;
+            --button-hover: #1d4ed8;
+            --feedback-success-bg: #ecfdf5;
+            --feedback-success-border: #34d399;
+            --feedback-success-text: #065f46;
+            --feedback-error-bg: #fef2f2;
+            --feedback-error-border: #f87171;
+            --feedback-error-text: #991b1b;
+        }
+
+        /* 3. Midnight (Pure Black) */
+        [data-theme="midnight"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --text-accent: #90caf9;
+            --border-color: #333333;
+            --highlight-bg: #1a1a1a;
+            --button-bg: #90caf9;
+            --button-text: #000000;
+            --button-hover: #42a5f5;
+            --feedback-success-bg: #051b11;
+            --feedback-success-border: #0f5132;
+            --feedback-success-text: #75b798;
+            --feedback-error-bg: #2c0b0e;
+            --feedback-error-border: #842029;
+            --feedback-error-text: #ea868f;
+        }
+
+        /* 4. Legacy Dark (Original) */
+        [data-theme="legacy-dark"] {
+            --bg-body: #2d343e;
+            --bg-card: #3c424f;
+            --bg-header: #3c424f;
+            --text-main: #e8e6e3;
+            --text-muted: #b0c4de;
+            --text-accent: #8ab4f8;
+            --border-color: #555;
+            --highlight-bg: #454c5a;
+            --button-bg: #8ab4f8;
+            --button-text: #202124;
+            --button-hover: #a3c5f9;
+            --feedback-success-bg: #344e41;
+            --feedback-success-border: #52b788;
+            --feedback-success-text: #c7f9cc;
+            --feedback-error-bg: #5e2129;
+            --feedback-error-border: #a4133c;
+            --feedback-error-text: #f8d7da;
+        }
+
+        /* 5. Sepia (Reading Mode) */
+        [data-theme="sepia"] {
+            --bg-body: #f4ecd8;
+            --bg-card: #fdf6e3;
+            --bg-header: #e4d5b7;
+            --text-main: #433422;
+            --text-muted: #7c6f5a;
+            --text-accent: #a05a2c;
+            --border-color: #d3c4a5;
+            --highlight-bg: #ebe1c9;
+            --button-bg: #a05a2c;
+            --button-text: #fdf6e3;
+            --button-hover: #864822;
+            --feedback-success-bg: #e6f4ea;
+            --feedback-success-border: #8ab893;
+            --feedback-success-text: #2e4c35;
+            --feedback-error-bg: #f9e3e3;
+            --feedback-error-border: #d48f8f;
+            --feedback-error-text: #5c2b2b;
+        }
+
+        /* 6. High Contrast */
+        [data-theme="contrast"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #ffffff;
+            --text-muted: #dddddd;
+            --text-accent: #ffff00;
+            --border-color: #ffffff;
+            --highlight-bg: #333333;
+            --button-bg: #ffff00;
+            --button-text: #000000;
+            --button-hover: #e6e600;
+            --feedback-success-bg: #000000;
+            --feedback-success-border: #00ff00;
+            --feedback-success-text: #00ff00;
+            --feedback-error-bg: #000000;
+            --feedback-error-border: #ff0000;
+            --feedback-error-text: #ff0000;
+        }
+
+        /* --- Global Reset & Layout --- */
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Default to Sticky */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Class to remove sticky behavior */
+        header.unpinned {
+            position: relative;
+            box-shadow: none;
+        }
+
+        header h1 {
+            font-size: 1.25rem;
+            margin: 0;
+            color: var(--text-accent);
+        }
+
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pin-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .pin-btn:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .pin-btn.pin-active {
+            color: var(--text-accent);
+            border-color: var(--text-accent);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        select#theme-select {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* --- Main Content --- */
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem 4rem 1rem;
+        }
+
+        .section-header {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--text-accent);
+            color: var(--text-accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* --- Question Card --- */
+        .question-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .lo-box {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--text-accent);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Options --- */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: var(--highlight-bg);
+            border-color: var(--text-muted);
+        }
+
+        .option-label input {
+            margin-top: 0.3rem;
+            margin-right: 1rem;
+            accent-color: var(--text-accent);
+            transform: scale(1.2);
+        }
+
+        /* --- Buttons --- */
+        .btn-check {
+            margin-top: 1.5rem;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-check:hover {
+            opacity: 0.9;
+        }
+
+        /* --- Feedback Area --- */
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: none; /* Hidden by default */
+            border: 1px solid transparent;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background-color: var(--feedback-success-bg);
+            border-color: var(--feedback-success-border);
+            color: var(--feedback-success-text);
+        }
+
+        .feedback.incorrect {
+            background-color: var(--feedback-error-bg);
+            border-color: var(--feedback-error-border);
+            color: var(--feedback-error-text);
+        }
+
+        .feedback-header {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .rationale {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .source {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-style: italic;
+            border-top: 1px dashed currentColor;
+            padding-top: 0.5rem;
+        }
+
+        /* --- Mobile Tweaks --- */
+        @media (max-width: 600px) {
+            header { padding: 1rem; flex-direction: column; gap: 10px; align-items: flex-start; }
+            .controls-wrapper { width: 100%; justify-content: space-between; }
+            .question-card { padding: 1.5rem; }
+            header h1 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <h1>Week 30 Monday Practice Quiz</h1>
+        <div class="controls-wrapper">
+            <!-- Pin Button -->
+            <button class="pin-btn pin-active" id="pin-btn" onclick="toggleHeader()" title="Pin/Unpin Header">
+                📍
+            </button>
+            
+            <div class="theme-control">
+                <label for="theme-select">Theme:</label>
+                <select id="theme-select" onchange="changeTheme(this.value)">
+                    <option value="dark">Modern Dark</option>
+                    <option value="midnight">Midnight</option>
+                    <option value="light">Modern Light</option>
+                    <option value="legacy-dark">Legacy Dark</option>
+                    <option value="sepia">Sepia</option>
+                    <option value="contrast">High Contrast</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="quiz-root">
+        <!-- Content injected via JS -->
+    </div>
+
+    <script>
+        // --- Data ---
+        const quizData = [
+            // --- Section 1: Upper Respiratory Tract Anatomy ---
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO1: Identify the [osseocartilaginous components] of the nasal septum, nasal conchae, and nasal meatuses of the lateral nasal wall.",
+                fullLO: "LO1: Identify the osseocartilaginous components of the nasal septum, nasal conchae, and nasal meatuses of the lateral nasal wall.",
+                question: "A 16-year-old male is evaluated after sustaining facial trauma during a rugby match. CT imaging reveals a fracture of the superior portion of the nasal septum. Which of the following bony structures is most likely involved in this injury?",
+                options: {
+                    A: "Inferior nasal concha",
+                    B: "Nasal crest of the maxilla",
+                    C: "Perpendicular plate of the ethmoid bone",
+                    D: "Sphenoid bone",
+                    E: "Vomer"
+                },
+                correctAnswer: "C",
+                rationale: "The nasal septum is composed of the perpendicular plate of the ethmoid bone superiorly, the vomer posteroinferiorly, and the septal cartilage anteriorly.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 2: \"Perpendicular plate of the ethmoid bone – superior part of the nasal septum that descends from the cribriform plates\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO1: Identify the [osseocartilaginous components] of the nasal septum, nasal conchae, and nasal meatuses of the lateral nasal wall.",
+                fullLO: "LO1: Identify the osseocartilaginous components of the nasal septum, nasal conchae, and nasal meatuses of the lateral nasal wall.",
+                question: "A 45-year-old woman presents with chronic tearing from her right eye. A blockage is suspected in the drainage system that connects the lacrimal sac to the nose. An otolaryngologist examines the lateral nasal wall to locate the opening of the nasolacrimal duct. This opening is located in which of the following spaces?",
+                options: {
+                    A: "Ethmoidal bulla",
+                    B: "Inferior nasal meatus",
+                    C: "Middle nasal meatus",
+                    D: "Spheno-ethmoidal recess",
+                    E: "Superior nasal meatus"
+                },
+                correctAnswer: "B",
+                rationale: "The inferior nasal meatus contains the opening of the nasolacrimal duct.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 3: \"Inferior nasal meatus – inferior to the inferior nasal concha... Nasolacrimal duct... opens into the anterior part of the meatus\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO2: Identify the paranasal sinuses and locate the [drainage point] of each paranasal sinus within the nasal cavity.",
+                fullLO: "LO2: Identify the paranasal sinuses (frontal, maxillary, sphenoid, and ethmoidal sinuses) and locate the drainage point (opening) of each paranasal sinus within the nasal cavity.",
+                question: "A 35-year-old man presents with facial pressure and purulent nasal discharge. A CT scan of the head reveals fluid accumulation in the largest of the paranasal sinuses. To drain naturally, the fluid must pass through an ostium located in the superior aspect of the sinus medial wall. Into which nasal space does this sinus drain?",
+                options: {
+                    A: "Inferior nasal meatus",
+                    B: "Middle nasal meatus (semilunar hiatus)",
+                    C: "Nasopharynx",
+                    D: "Spheno-ethmoidal recess",
+                    E: "Superior nasal meatus"
+                },
+                correctAnswer: "B",
+                rationale: "The maxillary sinuses are the largest paranasal sinuses. They drain through the maxillary ostium, which opens into the semilunar hiatus of the middle meatus.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 4: \"Maxillary sinuses – largest of the paranasal sinuses... Drain through the maxillary ostium, which opens into the semilunar hiatus of the middle meatus\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO2: Identify the paranasal sinuses and locate the [drainage point] of each paranasal sinus within the nasal cavity.",
+                fullLO: "LO2: Identify the paranasal sinuses (frontal, maxillary, sphenoid, and ethmoidal sinuses) and locate the drainage point (opening) of each paranasal sinus within the nasal cavity.",
+                question: "A neurosurgeon is planning a transsphenoidal approach to remove a pituitary tumor. During the procedure, the surgeon enters the sphenoid sinus. The natural drainage opening of this sinus communicates with which of the following structures?",
+                options: {
+                    A: "Ethmoidal bulla",
+                    B: "Inferior nasal meatus",
+                    C: "Semilunar hiatus",
+                    D: "Spheno-ethmoidal recess",
+                    E: "Superior nasal meatus"
+                },
+                correctAnswer: "D",
+                rationale: "The sphenoid sinuses drain into the spheno-ethmoidal recess.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 24: \"Sphenoid Sinuses... Drainage: Spheno-ethmoidal recess\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO3: Describe the boundaries and contents of each part of the pharynx as well as its openings to [adjacent structures].",
+                fullLO: "LO3: Describe the boundaries and contents of each part of the pharynx as well as its openings to the nasal cavity, oral cavity, and entrance of the larynx.",
+                question: "A 6-year-old girl is brought to the pediatrician for evaluation of chronic mouth breathing and snoring. Physical examination reveals enlargement of lymphoid tissue located in the roof and posterior wall of the nasopharynx. Which of the following structures is most likely hypertrophied?",
+                options: {
+                    A: "Lingual tonsils",
+                    B: "Palatine tonsils",
+                    C: "Pharyngeal tonsils",
+                    D: "Tubal tonsils",
+                    E: "Vermiform appendix"
+                },
+                correctAnswer: "C",
+                rationale: "Pharyngeal tonsils are located in the roof and posterior wall of the nasopharynx. Enlargement (adenoiditis) can cause obstruction leading to mouth breathing and snoring.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 6: \"Pharyngeal tonsils – concentrations of aggregated lymphoid tissue located in the mucous membrane of the roof and posterior wall of the nasopharynx\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO3: Describe the boundaries and contents of each part of the pharynx as well as its openings to [adjacent structures].",
+                fullLO: "LO3: Describe the boundaries and contents of each part of the pharynx as well as its openings to the nasal cavity, oral cavity, and entrance of the larynx.",
+                question: "A 50-year-old man presents to the emergency department after swallowing a fish bone. He points to a specific area in his neck where he feels a sharp pain. The physician suspects the bone is lodged in a small depression of the laryngopharyngeal cavity bounded laterally by the medial surface of the thyroid cartilage. This space is known as the:",
+                options: {
+                    A: "Ethmoidal bulla",
+                    B: "Laryngeal inlet",
+                    C: "Laryngeal ventricle",
+                    D: "Piriform fossa (recess)",
+                    E: "Tonsillar sinus"
+                },
+                correctAnswer: "D",
+                rationale: "The piriform fossa is a small depression of the laryngopharyngeal cavity on each side of the laryngeal inlet where foreign bodies may become lodged.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 6: \"Piriform fossa (recess) – small depression of the laryngopharyngeal cavity on each side of the laryngeal inlet... Clinical Note: Foreign bodies entering the pharynx may become lodged in the piriform fossae.\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO4: Examine the external features of the larynx. Identify and discuss the functions of the [laryngeal nerves and arteries].",
+                fullLO: "LO4: Examine the external features of the larynx. Identify and discuss the functions of the internal & external branches of the superior laryngeal nerve, the superior laryngeal artery, and the inferior laryngeal nerve.",
+                question: "A 45-year-old female undergoes a thyroidectomy. Post-operatively, she reports that her voice is monotone and she is unable to hit high notes while singing. Which of the following nerves was most likely injured during the surgery?",
+                options: {
+                    A: "External branch of the superior laryngeal nerve",
+                    B: "Inferior laryngeal nerve",
+                    C: "Internal branch of the superior laryngeal nerve",
+                    D: "Recurrent laryngeal nerve",
+                    E: "Vagus nerve"
+                },
+                correctAnswer: "A",
+                rationale: "The external branch of the superior laryngeal nerve innervates the cricothyroid muscle, which tenses the vocal ligament to raise pitch. Injury results in a monotone voice.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Pages 11 & 48: \"External branch of the superior laryngeal nerve... Provides motor innervation to the cricothyroid muscle... Injury can lead to a monotone voice\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO4: Examine the external features of the larynx. Identify and discuss the functions of the [laryngeal nerves and arteries].",
+                fullLO: "LO4: Examine the external features of the larynx. Identify and discuss the functions of the internal & external branches of the superior laryngeal nerve, the superior laryngeal artery, and the inferior laryngeal nerve.",
+                question: "A 22-year-old male is eating dinner and begins to choke. A piece of food has lodged in the piriform recess, piercing the mucous membrane. Which of the following nerves is at greatest risk of injury in this specific location, potentially resulting in loss of sensation above the vocal folds?",
+                options: {
+                    A: "External branch of the superior laryngeal nerve",
+                    B: "Glossopharyngeal nerve",
+                    C: "Hypoglossal nerve",
+                    D: "Internal branch of the superior laryngeal nerve",
+                    E: "Phrenic nerve"
+                },
+                correctAnswer: "D",
+                rationale: "The internal branch of the superior laryngeal nerve pierces the thyrohyoid membrane and provides sensory innervation above the vocal folds. It is vulnerable to injury in the piriform fossa.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Pages 6-7: \"If the object is sharp, it may pierce the mucous membrane and injure the internal branch of the superior laryngeal nerve... Injury to these nerves may result in anesthesia of the laryngeal mucous membrane as far inferiorly as the vocal folds.\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO5: Identify the principal cartilages, membranes, and muscles of the larynx and discuss their functions.",
+                fullLO: "LO5: Identify the principal cartilages, membranes, and muscles of the larynx and discuss their functions.",
+                question: "During a laryngeal examination, the physician observes the movement of the vocal folds. Which of the following intrinsic laryngeal muscles is the sole abductor of the vocal folds, effectively opening the rima glottidis?",
+                options: {
+                    A: "Cricothyroid",
+                    B: "Lateral cricoarytenoid",
+                    C: "Posterior cricoarytenoid",
+                    D: "Thyroarytenoid",
+                    E: "Transverse arytenoid"
+                },
+                correctAnswer: "C",
+                rationale: "The posterior cricoarytenoid muscle abducts the vocal ligaments and opens the posterior rima glottidis.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 49: \"Posterior Cricoarytenoid... ABducts vocal ligaments... Opens posterior rima glottidis\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO5: Identify the principal cartilages, membranes, and muscles of the larynx and discuss their functions.",
+                fullLO: "LO5: Identify the principal cartilages, membranes, and muscles of the larynx and discuss their functions.",
+                question: "A medical student is identifying structures in the neck. She locates a membrane that extends between the thyroid cartilage and the cricoid cartilage. This membrane is a critical landmark for establishing an emergency airway. What is this structure?",
+                options: {
+                    A: "Aryepiglottic fold",
+                    B: "Cricothyroid membrane",
+                    C: "Quadrangular membrane",
+                    D: "Thyrohyoid membrane",
+                    E: "Vocal ligament"
+                },
+                correctAnswer: "B",
+                rationale: "The cricothyroid membrane connects the thyroid and cricoid cartilages and is the site for emergency cricothyroidotomy.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 9: \"Cricothyroid membrane – membrane attaching superiorly to the thyroid cartilage and inferiorly to the cricoid cartilage... Clinical Note: In life-threatening situations... a cricothyroidotomy can be performed\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO6: Examine the internal features of the larynx. Identify the regions of the laryngeal cavity and the [vocal folds].",
+                fullLO: "LO6: Examine the internal features of the larynx. Identify the regions of the laryngeal cavity and the vocal (true vocal) and vestibular (false vocal) folds.",
+                question: "An anesthesiologist is intubating a patient. As the laryngoscope blade lifts the epiglottis, two pairs of folds are visualized in the larynx. The superior pair of folds, which play a protective role but do not produce sound, are identified as the:",
+                options: {
+                    A: "Aryepiglottic folds",
+                    B: "Glossoepiglottic folds",
+                    C: "Vestibular folds",
+                    D: "Vocal folds",
+                    E: "Vocal ligaments"
+                },
+                correctAnswer: "C",
+                rationale: "Vestibular folds are the false vocal cords; they serve a protective function and do not contribute to sound production.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 46: \"Vestibular Folds... False vocal cords... Do NOT contribute to sound production... Serve a protective function\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO6: Examine the internal features of the larynx. Identify the regions of the laryngeal cavity and the [vocal folds].",
+                fullLO: "LO6: Examine the internal features of the larynx. Identify the regions of the laryngeal cavity and the vocal (true vocal) and vestibular (false vocal) folds.",
+                question: "During a singing lesson, a student is instructed to hold a high pitch. To produce this sound, the rima glottidis becomes slit-like. Which anatomical structures form the boundaries of the rima glottidis?",
+                options: {
+                    A: "The aryepiglottic folds",
+                    B: "The cricoid cartilage arch",
+                    C: "The space between the vestibular folds",
+                    D: "The space between the vocal ligaments/folds",
+                    E: "The thyrohyoid membrane"
+                },
+                correctAnswer: "D",
+                rationale: "The rima glottidis is the space between the vocal ligaments (vocal folds).",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 41: \"Rima glottidis: space between the vocal ligaments\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO7: Discuss the clinical presentation and anatomical basis of the following: [List of conditions].",
+                fullLO: "LO7: Discuss the clinical presentation and anatomical basis of the following: Maxillary sinus infection, epistaxis, anosmia, adenoiditis, tonsillectomy, cricothyroidotomy, cough reflex, and laryngeal nerve damage",
+                question: "A 10-year-old boy presents with a nosebleed (epistaxis) after picking his nose. The bleeding is localized to the anterior-inferior aspect of the nasal septum. This area, known as Kiesselbach’s area, represents the anastomosis of several arteries. Which of the following arteries contributes to this plexus?",
+                options: {
+                    A: "Ascending pharyngeal artery",
+                    B: "Infraorbital artery",
+                    C: "Middle meningeal artery",
+                    D: "Sphenopalatine artery",
+                    E: "Transverse facial artery"
+                },
+                correctAnswer: "D",
+                rationale: "Kiesselbach’s area is an anastomosis of 5 arteries: Anterior ethmoidal, Posterior ethmoidal, Sphenopalatine, Greater palatine, and Superior labial arteries.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 4: \"Kiesselbach’s area... where all 5 arteries supplying the septum anastomose: ... c. Sphenopalatine artery\""
+            },
+            {
+                section: "Upper Respiratory Tract Anatomy",
+                maskedLO: "LO7: Discuss the clinical presentation and anatomical basis of the following: [List of conditions].",
+                fullLO: "LO7: Discuss the clinical presentation and anatomical basis of the following: Maxillary sinus infection, epistaxis, anosmia, adenoiditis, tonsillectomy, cricothyroidotomy, cough reflex, and laryngeal nerve damage",
+                question: "A 55-year-old female presents with hoarseness following a surgery on her neck. Laryngoscopy reveals that her left vocal fold is paralyzed in a paramedian position (unable to adduct or abduct). Which nerve injury is most likely responsible for these findings?",
+                options: {
+                    A: "External branch of the superior laryngeal nerve",
+                    B: "Glossopharyngeal nerve",
+                    C: "Hypoglossal nerve",
+                    D: "Internal branch of the superior laryngeal nerve",
+                    E: "Recurrent (Inferior) laryngeal nerve"
+                },
+                correctAnswer: "E",
+                rationale: "The inferior (recurrent) laryngeal nerve innervates all intrinsic muscles of the larynx except the cricothyroid. Unilateral injury leads to hoarseness and inability to adduct/abduct the vocal fold.",
+                source: "Upper_Respiratory_Tract_Anatomy_PDF.pdf, Page 11: \"In unilateral nerve lesions [of inferior/recurrent laryngeal nerve], hoarseness will occur because of paralysis of the muscles innervated by the damaged nerve.\""
+            },
+
+            // --- Section 2: Pleural Cavity and Lungs ---
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO1: Describe the gross structural features of the lungs, including [lobes, fissures, and segments].",
+                fullLO: "LO1: Describe the gross structural features of the lungs, including lobes and fissures, root structures at the hilum, and bronchopulmonary segments.",
+                question: "A radiologist reviews a chest X-ray of a 60-year-old male. She identifies a fissure that separates the superior lobe from the middle lobe. This feature is specific to the right lung. Which fissure is she observing?",
+                options: {
+                    A: "Accessary fissure",
+                    B: "Horizontal fissure",
+                    C: "Oblique fissure",
+                    D: "Sagittal fissure",
+                    E: "Vertical fissure"
+                },
+                correctAnswer: "B",
+                rationale: "The right lung has a horizontal fissure that separates the superior lobe from the middle lobe. This is a specific feature of the right lung.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 19: \"Right Lung Specific Features... Horizontal fissure\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO1: Describe the gross structural features of the lungs, including [lobes, fissures, and segments].",
+                fullLO: "LO1: Describe the gross structural features of the lungs, including lobes and fissures, root structures at the hilum, and bronchopulmonary segments.",
+                question: "During a gross anatomy dissection of the thorax, a student examines the medial surface of the left lung. He identifies a tongue-like projection of the superior lobe located below the cardiac notch. This structure is known as the:",
+                options: {
+                    A: "Apex",
+                    B: "Base",
+                    C: "Cupula",
+                    D: "Lingula",
+                    E: "Uncus"
+                },
+                correctAnswer: "D",
+                rationale: "The lingula is a tongue-like projection below the cardiac notch on the left lung.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 20: \"Left Lung Specific Features... Lingula: tongue-like projection below the cardiac notch\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO2: Discuss the branching organization of the tracheobronchial tree. Discuss where [foreign bodies are lodged].",
+                fullLO: "LO2: Discuss the branching organization of the tracheobronchial tree. Discuss where aspirated foreign bodies are most likely to be found and why.",
+                question: "A 3-year-old child presents to the emergency department after a choking episode while eating peanuts. Physical examination reveals diminished breath sounds on the right side. Bronchoscopy is performed to retrieve the aspirated peanut. Based on airway anatomy, the object is most likely located in the right main bronchus because it is:",
+                options: {
+                    A: "Longer and more horizontal than the left",
+                    B: "Narrower and more vertical than the left",
+                    C: "Wider, shorter, and more vertical than the left",
+                    D: "Wider, longer, and more horizontal than the left",
+                    E: "Surrounded by less cartilage than the left"
+                },
+                correctAnswer: "C",
+                rationale: "The right main bronchus is wider, shorter, and more vertical than the left, making it the most likely site for aspirated foreign bodies.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 26: \"Right main bronchus: wider, shorter, more vertical... Aspirated foreign bodies are more likely to enter and lodge in the right main bronchus\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO2: Discuss the branching organization of the tracheobronchial tree. Discuss where [foreign bodies are lodged].",
+                fullLO: "LO2: Discuss the branching organization of the tracheobronchial tree. Discuss where aspirated foreign bodies are most likely to be found and why.",
+                question: "A thoracic surgeon is evaluating a patient with a tracheal tumor. The surgeon notes the location of the carina, the internal ridge separating the right and left main bronchi. At which anatomical level is the bifurcation of the trachea located?",
+                options: {
+                    A: "C6 vertebral level",
+                    B: "Jugular notch",
+                    C: "Sternal angle (T4/5)",
+                    D: "T2 vertebral level",
+                    E: "Xiphoid process"
+                },
+                correctAnswer: "C",
+                rationale: "The bifurcation of the trachea occurs at the level of the sternal angle (T4/5).",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 24: \"Bifurcation of the Trachea... At the level of the sternal angle... T4/5\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO3: Describe the structure of the parietal and visceral pleural layers... Discuss the innervation of the pleura and how this relates to [pain].",
+                fullLO: "LO3: Describe the structure of the parietal and visceral pleural layers of pleura and explain the functional importance of the pleural space. Discuss the innervation of the pleura and how this relates to referred pain.",
+                question: "A 55-year-old male presents with sharp chest pain that worsens with inspiration. He is diagnosed with pleuritis. The pain is localized and sharp, indicating irritation of the parietal pleura. Which of the following nerve types is responsible for conveying this sharp, localized pain from the parietal pleura?",
+                options: {
+                    A: "Autonomic parasympathetic fibers",
+                    B: "Autonomic sympathetic fibers",
+                    C: "Reflexive visceral afferent fibers",
+                    D: "Somatic afferent fibers",
+                    E: "Special sensory fibers"
+                },
+                correctAnswer: "D",
+                rationale: "The parietal pleura is innervated by somatic afferent fibers (from intercostal and phrenic nerves), which conduct pain.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 64: \"Somatic afferent fibers from parietal pleura derive from intercostal and phrenic nerves\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO3: Describe the structure of the parietal and visceral pleural layers... Discuss the innervation of the pleura and how this relates to [pain].",
+                fullLO: "LO3: Describe the structure of the parietal and visceral pleural layers of pleura and explain the functional importance of the pleural space. Discuss the innervation of the pleura and how this relates to referred pain.",
+                question: "A patient presents with a lung tumor that has invaded the visceral pleura. Despite the mass, the patient reports no localized sharp pain associated with the lung surface itself. This is because the visceral pleura innervation is:",
+                options: {
+                    A: "Conducted by somatic afferent fibers",
+                    B: "Derived solely from the phrenic nerve",
+                    C: "Highly sensitive to touch and temperature",
+                    D: "Insensitive to pain (nociceptive fibers accompany sympathetic fibers)",
+                    E: "Supplied by the intercostal nerves"
+                },
+                correctAnswer: "D",
+                rationale: "Visceral afferents accompany sympathetic fibers. The visceral pleura is generally insensitive to sharp somatic pain, unlike the parietal pleura. Nociceptive visceral afferent fibers conduct painful stimuli but generally result in diffuse/referred sensation rather than sharp localized pain.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 64: \"Nociceptive visceral afferent fibers... accompany sympathetic fibers... Visceral pleura and bronchial tree\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO4: Identify the pleural recesses and lines of pleural reflection. Compare the levels of [lung and pleura].",
+                fullLO: "LO4: Identify the pleural recesses and lines of pleural reflection. Compare the levels of extension of the lungs and parietal pleura and indicate why this knowledge is important clinically.",
+                question: "A patient with heart failure develops a pleural effusion. A chest X-ray shows blunting of the sharp angle normally seen at the periphery of the diaphragm. Fluid has accumulated in the potential space not occupied by the lungs during expiration. This space is the:",
+                options: {
+                    A: "Cardiac notch",
+                    B: "Costodiaphragmatic recess",
+                    C: "Costomediastinal recess",
+                    D: "Horizontal fissure",
+                    E: "Pulmonary ligament"
+                },
+                correctAnswer: "B",
+                rationale: "The costodiaphragmatic recess is a pleural space not occupied by the lungs during expiration where fluid accumulates.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Pages 10 & 13: \"Pleural Recesses... 1. Costodiaphragmatic recess... Fluid accumulates in the costodiaphragmatic recess\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO4: Identify the pleural recesses and lines of pleural reflection. Compare the levels of [lung and pleura].",
+                fullLO: "LO4: Identify the pleural recesses and lines of pleural reflection. Compare the levels of extension of the lungs and parietal pleura and indicate why this knowledge is important clinically.",
+                question: "During a lecture on thoracic anatomy, the instructor defines a pleural recess. Which of the following best describes these anatomical spaces?",
+                options: {
+                    A: "Areas where the visceral and parietal pleura are fused",
+                    B: "Locations where the lung adheres to the chest wall",
+                    C: "Pleural spaces not occupied by the lungs during expiration",
+                    D: "The space between the right and left pleural cavities",
+                    E: "The space located within the root of the lung"
+                },
+                correctAnswer: "C",
+                rationale: "Pleural recesses are defined as pleural spaces which are not occupied by the lungs during expiration.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 10: \"Pleural Recesses... Pleural spaces which are not occupied by the lungs during expiration\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO5: Describe the lymphatic drainage and neurovascular supply to/from the lungs and pleurae.",
+                fullLO: "LO5: Describe the lymphatic drainage and neurovascular supply to/from the lungs and pleurae.",
+                question: "A pathologist is examining the blood supply of the lung tissue. She identifies the vessels that supply oxygenated blood to the root of the lung, the supporting tissues of the lung, and the visceral pleura. These vessels originate from the aorta. What are they?",
+                options: {
+                    A: "Bronchial arteries",
+                    B: "Coronary arteries",
+                    C: "Intercostal arteries",
+                    D: "Pulmonary arteries",
+                    E: "Pulmonary veins"
+                },
+                correctAnswer: "A",
+                rationale: "Bronchial arteries supply the root of the lung, tissue of the lung, and visceral pleura. They originate from the aorta.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 50: \"Bronchial arteries: Supply: root of the lung, tissue of the lung, visceral pleura... Origin: aorta\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO5: Describe the lymphatic drainage and neurovascular supply to/from the lungs and pleurae.",
+                fullLO: "LO5: Describe the lymphatic drainage and neurovascular supply to/from the lungs and pleurae.",
+                question: "Lymph from the right lung drains through pulmonary and bronchopulmonary nodes, eventually reaching the right lymphatic duct. In contrast, lymph from the left lung eventually drains into which major lymphatic vessel?",
+                options: {
+                    A: "Azygos vein",
+                    B: "Cisterna chyli",
+                    C: "Inferior vena cava",
+                    D: "Right lymphatic duct",
+                    E: "Thoracic duct"
+                },
+                correctAnswer: "E",
+                rationale: "Lymph from the left side (superior and inferior tracheobronchial lymph nodes) drains to the thoracic duct.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 52: \"Left -> thoracic duct -> angle of r. internal jugular v. and r. subclavian v.\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO6: Discuss the anatomical basis for and clinical presentation of [pleural conditions].",
+                fullLO: "LO6: Discuss the anatomical basis for and clinical presentation of pulmonary effusion and pleuritis.",
+                question: "A 40-year-old male presents with chest pain and a dry cough. Auscultation reveals a \"creaking\" sound described as a pleural rub. The physician explains that this sound is caused by friction between roughened lung surfaces due to inflammation. What is the diagnosis?",
+                options: {
+                    A: "Hemothorax",
+                    B: "Pleuritis",
+                    C: "Pneumonia",
+                    D: "Pneumothorax",
+                    E: "Pulmonary embolism"
+                },
+                correctAnswer: "B",
+                rationale: "Pleuritis is inflammation of the pleura causing lung surfaces to become rough. Friction can be heard as a pleural rub.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 11: \"Pleuritis... Inflammation of the pleura... Lung surfaces become rough... Friction can be heard as pleural rub\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO6: Discuss the anatomical basis for and clinical presentation of [pleural conditions].",
+                fullLO: "LO6: Discuss the anatomical basis for and clinical presentation of pulmonary effusion and pleuritis.",
+                question: "A patient is diagnosed with a hydrothorax. This condition is defined by the accumulation of which substance in the pleural cavity?",
+                options: {
+                    A: "Air",
+                    B: "Blood",
+                    C: "Chyle",
+                    D: "Fluid",
+                    E: "Pus"
+                },
+                correctAnswer: "D",
+                rationale: "Hydrothorax refers to fluid in the pleural cavity, often caused by pleural effusion.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 14: \"Hydrothorax: fluid in the pleural cavity... Causes: pleural effusion\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO7: Discuss anatomical considerations when performing a thoracentesis.",
+                fullLO: "LO7: Discuss anatomical considerations when performing a thoracentesis.",
+                question: "A clinician is performing a thoracentesis to sample pleural fluid. According to the designated reference material, the needle should be inserted into which intercostal space at the midaxillary line?",
+                options: {
+                    A: "2nd",
+                    B: "4th",
+                    C: "6th",
+                    D: "8th",
+                    E: "10th"
+                },
+                correctAnswer: "D",
+                rationale: "Thoracentesis is performed to obtain a sample from the pleural cavity. The needle is inserted into the 8th intercostal space at the midaxillary line.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 13: \"Insert into the 8th intercostal space at the midaxillary line\""
+            },
+            {
+                section: "Pleural Cavity and Lungs",
+                maskedLO: "LO7: Discuss anatomical considerations when performing a thoracentesis.",
+                fullLO: "LO7: Discuss anatomical considerations when performing a thoracentesis.",
+                question: "A physician prepares to perform a thoracentesis. To prevent injury to the intercostal neurovascular bundle, the physician must identify the correct insertion site relative to the intercostal space boundaries. According to the specific guidance in the reference documents, where is the bundle located?",
+                options: {
+                    A: "At the inferior edge of the intercostal space",
+                    B: "At the superior edge of the intercostal space",
+                    C: "In the exact center of the intercostal space",
+                    D: "Posterior to the internal intercostal muscle",
+                    E: "Superficial to the external intercostal muscle"
+                },
+                correctAnswer: "B",
+                rationale: "The provided text explicitly states to avoid the bundle at the superior edge of the intercostal space.",
+                source: "Pleural_Cavity_and_Lungs_PDF.pdf, Page 13: \"Avoid intercostal neurovascular bundle at the superior edge of the intercostal space\""
+            },
+
+            // --- Section 3: Respiratory Histology ---
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO1: List the various segments of the respiratory system and identify the [function of each].",
+                fullLO: "LO1: List the various segments of the respiratory system and identify the general function of each segment in respiration.",
+                question: "A histologist is examining the transition zones of the respiratory tract. The functional division between the conducting system and the gas exchange system occurs at the transition between which two structures?",
+                options: {
+                    A: "Bronchi and Bronchioles",
+                    B: "Larynx and Trachea",
+                    C: "Nasal cavity and Pharynx",
+                    D: "Terminal bronchioles and Respiratory bronchioles",
+                    E: "Trachea and Primary Bronchi"
+                },
+                correctAnswer: "D",
+                rationale: "The conducting system ends at the terminal bronchioles. Gas exchange begins at the respiratory bronchioles.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 4: \"CONDUCTING/CONDITIONING... nasal cavity to terminal bronchioles... GAS EXCHANGE... respiratory bronchiole to alveoli\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO1: List the various segments of the respiratory system and identify the [function of each].",
+                fullLO: "LO1: List the various segments of the respiratory system and identify the general function of each segment in respiration.",
+                question: "The respiratory system is organized into functional units. Which of the following structures constitutes the functional unit of the respiratory system?",
+                options: {
+                    A: "Alveolar duct and atrium",
+                    B: "Primary bronchus and its lobar branches",
+                    C: "Pulmonary lobule",
+                    D: "Respiratory bronchiole and its alveolar sac",
+                    E: "Terminal bronchiole and its respiratory bronchioles"
+                },
+                correctAnswer: "D",
+                rationale: "The functional unit of the respiratory system is defined as the respiratory bronchiole and its alveolar sac (comprised of multiple alveoli).",
+                source: "Respiratory_Histology_2026_Handout.pdf, Page 1: \"Functional unit of the respiratory system is the respiratory bronchiole and its alveolar sac which is comprised of multiple alveoli.\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO2: Describe the microscopic organization of the respiratory mucosa and link [structure to function].",
+                fullLO: "LO2: Describe the microscopic organization of the respiratory mucosa and link each morphological component to its function in respiration.",
+                question: "A sample of respiratory epithelium is examined under a microscope. The epithelium is identified as pseudostratified ciliated columnar. Which specific cell type within this epithelium contributes to the formation of the \"mucous coat\" by secreting polysaccharides?",
+                options: {
+                    A: "Basal cells",
+                    B: "Brush cells",
+                    C: "Ciliated columnar cells",
+                    D: "Goblet cells",
+                    E: "Small granule cells"
+                },
+                correctAnswer: "D",
+                rationale: "Goblet cells help form the mucous coat by contributing polysaccharides (thicker), while serous glands contribute a thinner, watery secretion.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 16: \"Goblet cells: Help form Mucous coat by contribution of polysacarides (thicker)\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO2: Describe the microscopic organization of the respiratory mucosa and link [structure to function].",
+                fullLO: "LO2: Describe the microscopic organization of the respiratory mucosa and link each morphological component to its function in respiration.",
+                question: "A patient suffers from chronic nasal congestion. The congestion is partly due to the engorgement of venous plexuses located in the lamina propria of the nasal mucosa. These structures, which alternate engorgement from side to side, are known as:",
+                options: {
+                    A: "Bowman's glands",
+                    B: "Brush cells",
+                    C: "Cavernous (swell) bodies",
+                    D: "Pores of Kohn",
+                    E: "Vibrissae"
+                },
+                correctAnswer: "C",
+                rationale: "Swell bodies (cavernous bodies) are venous plexuses in the lamina propria that engorge to restrict airflow and allow recovery from desiccation.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 13: \"swell bodies (cavernous bodies) – venous plexuses in lamina. propria; engorgement alternates from r. to l. side\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO3: Be able to link airway segments with specific descriptions of the cells and tissue organization.",
+                fullLO: "LO3: Be able to link airway segments with specific descriptions of the cells and tissue organization.",
+                question: "A histology slide of a lung airway shows a lumen lined by pseudostratified ciliated epithelium with goblet cells. The wall contains smooth muscle and plates of hyaline cartilage. Glands are present in the submucosa. Based on these features, this airway is best identified as a:",
+                options: {
+                    A: "Alveolar duct",
+                    B: "Bronchiole",
+                    C: "Bronchus",
+                    D: "Respiratory bronchiole",
+                    E: "Terminal bronchiole"
+                },
+                correctAnswer: "C",
+                rationale: "Bronchi are defined by the presence of cartilage and glands in the submucosa, along with pseudostratified epithelium with goblet cells. Bronchioles lack cartilage and glands.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 41: \"THIS BRONCHUS CAN BE IDENTIFIED BY THE PRESENCE OF BOTH CARTILAGE AND GLANDS IN ITS WALL.\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO3: Be able to link airway segments with specific descriptions of the cells and tissue organization.",
+                fullLO: "LO3: Be able to link airway segments with specific descriptions of the cells and tissue organization.",
+                question: "An airway is examined microscopically. It lacks cartilage and glands. The epithelium contains simple columnar to low cuboidal cells with cilia but lacks goblet cells. Instead, dome-shaped cells with short microvilli are present that secrete a protective glycoprotein. This airway is a:",
+                options: {
+                    A: "Bronchiole",
+                    B: "Bronchus",
+                    C: "Larynx",
+                    D: "Trachea",
+                    E: "Trachealis"
+                },
+                correctAnswer: "A",
+                rationale: "Bronchioles have no cartilage or glands. They lack goblet cells but contain Club cells (formerly Clara cells) which secrete protective glycoproteins.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 39: \"Bronchiole – no hyaline cartilage... no goblet cells... club cells take over function of goblet cells\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO4: Describe the cellular and extracellular components of the [interalveolar septum].",
+                fullLO: "LO4: Describe the cellular and extracellular components of the interalveolar septum.",
+                question: "A preterm infant develops respiratory distress syndrome due to alveolar collapse. This condition is caused by a deficiency in surfactant. Which cell type in the interalveolar septum is responsible for producing this substance?",
+                options: {
+                    A: "Alveolar Macrophage",
+                    B: "Capillary Endothelial Cell",
+                    C: "Club Cell",
+                    D: "Type I Pneumocyte",
+                    E: "Type II Pneumocyte"
+                },
+                correctAnswer: "E",
+                rationale: "Type II Pneumocytes (Alveolar Type II cells) produce surfactant, a lipoprotein secretion that decreases surface tension to keep alveoli patent.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 54: \"P2, pneumocyte type II, alveolar type II – produces surfactant\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO4: Describe the cellular and extracellular components of the [interalveolar septum].",
+                fullLO: "LO4: Describe the cellular and extracellular components of the interalveolar septum.",
+                question: "Within the alveoli, a specific cell type is responsible for the immune defense of the deep lung. These cells are of bone marrow origin and can be found in the interalveolar septum or on the surface of the alveolar epithelium. What are these cells?",
+                options: {
+                    A: "Alveolar macrophages",
+                    B: "Brush cells",
+                    C: "Goblet cells",
+                    D: "Type I Pneumocytes",
+                    E: "Type II Pneumocytes"
+                },
+                correctAnswer: "A",
+                rationale: "Alveolar macrophages are of bone marrow origin and serve as key innate immune effector cells in the lung.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 60: \"alveolar macrophages – bone marrow origin; within the interalveolar septum or on the surface of alveolar epithelium\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO5: Be able to discuss the [olfactory epithelium].",
+                fullLO: "LO5: Be able to discuss the olfactory epithelium.",
+                question: "The sense of smell is mediated by the olfactory mucosa. The primary receptor cells in this epithelium are unique because they are peripherally-placed neurons. Morphologically, these olfactory cells are classified as:",
+                options: {
+                    A: "Bipolar neurons",
+                    B: "Multipolar neurons",
+                    C: "Pseudounipolar neurons",
+                    D: "Pyramidal neurons",
+                    E: "Unipolar neurons"
+                },
+                correctAnswer: "A",
+                rationale: "Olfactory cells are bipolar neurons. They are the only example of peripherally-placed sensory neurons.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 10: \"Olfactory Cells (Receptor cells) – bipolar neurons only example of peripherally-placed sensory neurons\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO5: Be able to discuss the [olfactory epithelium].",
+                fullLO: "LO5: Be able to discuss the olfactory epithelium.",
+                question: "Histological examination of the olfactory region reveals simple branched tubuloalveolar glands in the lamina propria. These glands create a thin mucus layer for olfactants to dissolve in. What are these glands called?",
+                options: {
+                    A: "Brunner's glands",
+                    B: "Club glands",
+                    C: "Goblet glands",
+                    D: "Sebaceous glands",
+                    E: "Serous glands (of Bowman)"
+                },
+                correctAnswer: "E",
+                rationale: "Serous glands of Bowman are simple branched tubuloalveolar glands that create a mucus layer for olfactants to dissolve in.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 10: \"Serous Glands (of Bowman) – simple branched tubuloalveolar ; creates a thin mucus layer for olfactants to dissolve in\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO6: Discuss fibrosis as a restrictive lung disease and chronic bronchitis as an [obstructive lung disease].",
+                fullLO: "LO6: Discuss fibrosis as a restrictive lung disease and chronic bronchitis as an obstructive lung disease",
+                question: "A patient with a history of smoking develops emphysema. The pathogenesis involves the destruction of elastic fibers in the alveolar septa. This destruction is often due to an imbalance involving enzymes and inhibitors. Specifically, cigarette smoke inhibits which protective protein?",
+                options: {
+                    A: "Alpha-1 antitrypsin",
+                    B: "Collagen type I",
+                    C: "Elastase",
+                    D: "Surfactant protein A",
+                    E: "Trypsin"
+                },
+                correctAnswer: "A",
+                rationale: "Emphysema is associated with inhibitors of alpha-1 antitrypsin (like cigarette smoke). Alpha-1 antitrypsin normally protects elastic fibers from destruction by elastase.",
+                source: "Respiratory_System_Histology_PDF.pdf, Page 71: \"associated with long-term exposure to cigarette smoke and other inhibitors of alpha1-antitrypsin... which protects against destruction of elastic fibers by elastase\""
+            },
+            {
+                section: "Respiratory Histology",
+                maskedLO: "LO6: Discuss fibrosis as a restrictive lung disease and chronic bronchitis as an [obstructive lung disease].",
+                fullLO: "LO6: Discuss fibrosis as a restrictive lung disease and chronic bronchitis as an obstructive lung disease",
+                question: "A pathologist reviews lung tissue from a patient with chronic pulmonary disease. The airways are narrowed, and mucous plugs are observed. The patient’s condition is classified as \"Obstructive\" rather than \"Restrictive.\" Which of the following conditions fits this classification?",
+                options: {
+                    A: "Asbestosis",
+                    B: "Chronic Bronchitis",
+                    C: "Idiopathic Pulmonary Fibrosis",
+                    D: "Pulmonary edema",
+                    E: "Sarcoidosis"
+                },
+                correctAnswer: "B",
+                rationale: "Chronic bronchitis is an obstructive lung disease characterized by narrowed or occluded airways and mucous plugs. Fibrosis and sarcoidosis are restrictive.",
+                source: "Respiratory_Histology_2026_Handout.pdf, Page 7: \"Obstructive lung disease (asthma, chronic bronchitis, emphysema)... narrowed or occluded airways (asthma & chronic bronchitis)\""
+            }
+        ];
+
+        // --- Core Logic ---
+        const quizRoot = document.getElementById('quiz-root');
+        const themeSelect = document.getElementById('theme-select');
+        const pinBtn = document.getElementById('pin-btn');
+        const mainHeader = document.getElementById('main-header');
+
+        function initQuiz() {
+            // Render Questions
+            let currentSection = "";
+            let questionCount = 0;
+            
+            quizData.forEach((item, index) => {
+                // Insert Section Header if needed
+                if (item.section !== currentSection) {
+                    currentSection = item.section;
+                    const sectionHeader = document.createElement('h2');
+                    sectionHeader.className = 'section-header';
+                    sectionHeader.textContent = currentSection;
+                    quizRoot.appendChild(sectionHeader);
+                }
+
+                questionCount++;
+
+                // Create Card
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-card-${index}`;
+
+                // Learning Objective (Masked)
+                const loBox = document.createElement('div');
+                loBox.className = 'lo-box';
+                loBox.id = `lo-${index}`;
+                loBox.textContent = item.maskedLO;
+                card.appendChild(loBox);
+
+                // Question Text
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.textContent = `${questionCount}. ${item.question}`;
+                card.appendChild(qText);
+
+                // Options Container
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+
+                for (const [key, value] of Object.entries(item.options)) {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `question-${index}`;
+                    input.value = key;
+
+                    const span = document.createElement('span');
+                    span.textContent = `${key}. ${value}`;
+
+                    label.appendChild(input);
+                    label.appendChild(span);
+                    optionsGrid.appendChild(label);
+                }
+                card.appendChild(optionsGrid);
+
+                // Check Button
+                const btn = document.createElement('button');
+                btn.className = 'btn-check';
+                btn.textContent = 'Check Answer';
+                btn.onclick = () => checkAnswer(index);
+                card.appendChild(btn);
+
+                // Feedback Container
+                const feedback = document.createElement('div');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${index}`;
+                card.appendChild(feedback);
+
+                quizRoot.appendChild(card);
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('quizTheme') || 'dark';
+            changeTheme(savedTheme);
+            themeSelect.value = savedTheme;
+
+            // Load saved pin state
+            const savedPinState = localStorage.getItem('headerPinned');
+            // Default to true (pinned) if not set or if set to true
+            if (savedPinState === 'false') {
+                toggleHeader(false); 
+            } else {
+                toggleHeader(true);
+            }
+        }
+
+        function checkAnswer(index) {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const feedbackEl = document.getElementById(`feedback-${index}`);
+            const loEl = document.getElementById(`lo-${index}`);
+            const data = quizData[index];
+
+            if (!selected) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            // Reveal LO
+            loEl.textContent = data.fullLO;
+
+            // Generate Feedback HTML
+            const isCorrect = selected.value === data.correctAnswer;
+            
+            let html = `<span class="feedback-header">${isCorrect ? "Correct!" : "Incorrect"}</span>`;
+            if (!isCorrect) {
+                html += `<div>The correct answer is <strong>${data.correctAnswer}</strong>.</div>`;
+            }
+            
+            html += `<div class="rationale"><strong>Rationale:</strong> ${data.rationale}</div>`;
+            html += `<div class="source"><strong>Source:</strong> ${data.source}</div>`;
+
+            feedbackEl.innerHTML = html;
+            feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackEl.style.display = 'block';
+        }
+
+        function changeTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('quizTheme', themeName);
+        }
+
+        function toggleHeader(forceState) {
+            // Determine current state based on class presence
+            const isCurrentlyPinned = !mainHeader.classList.contains('unpinned');
+            
+            // If forceState is provided (boolean), use it. Otherwise toggle current state.
+            const newState = (typeof forceState === 'boolean') ? forceState : !isCurrentlyPinned;
+
+            if (newState) {
+                // Pin
+                mainHeader.classList.remove('unpinned');
+                pinBtn.classList.add('pin-active');
+                localStorage.setItem('headerPinned', 'true');
+            } else {
+                // Unpin
+                mainHeader.classList.add('unpinned');
+                pinBtn.classList.remove('pin-active');
+                localStorage.setItem('headerPinned', 'false');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initQuiz);
+
+    </script>
+</body>
+</html>
